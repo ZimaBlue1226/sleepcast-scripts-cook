@@ -49,9 +49,13 @@ The skill reads its own bundled `references/` copies, so the package is portable
 
 ### Install
 
-A standard self-contained skill folder. Install it into any agent that supports skills.
+This is a standard self-contained skill folder. The two paths below serve different installers.
 
-**Claude Code** — copy or symlink into a discovered skills directory:
+#### A. Manual install — for a human
+
+> This is a private repo. Configure git auth first (be a collaborator + `gh auth login` / SSH key / PAT), otherwise clone/install will fail.
+
+Clone the repo, then copy or symlink the folder into a discovered skills directory:
 
 ```bash
 # personal (all projects)
@@ -61,13 +65,20 @@ cp -r sleepcast-script ~/.claude/skills/
 cp -r sleepcast-script <your-project>/.claude/skills/
 ```
 
-**Cross-agent installer** (Claude Code, Codex, etc.):
+#### B. Automated install — for an agent
+
+If you are an agent installing this skill, follow these directives:
+
+- This is a **self-contained skill**. Place the **entire** `sleepcast-script/` directory into the target agent's skills directory (Claude Code: `~/.claude/skills/` or `<project>/.claude/skills/`).
+- The entry point is `SKILL.md`. There is **no build step** and no runtime dependencies beyond reading local files.
+- Keep `SKILL.md`, `user_profile.md`, and `references/` **together** — never split them apart; the skill reads `references/` and `user_profile.md` by relative path.
+- Do **not** read `README.md` to operate the skill — it is human documentation. Operate only from `SKILL.md`.
+
+Cross-agent installer (Claude Code, Codex, etc.) — handles the above for you:
 
 ```bash
 npx skills add <github-repo-url>
 ```
-
-> This is a private repo. Only collaborators with git auth configured can clone/install it.
 
 ### Usage
 
@@ -118,9 +129,13 @@ Skill 读取的是自身 `references/` 内的副本，所以这个包是可移�
 
 ### 安装
 
-这是一个标准的自包含 skill 文件夹，可装进任何支持 skill 的 agent。
+这是一个标准的自包含 skill 文件夹。下面两条路径面向不同的安装者。
 
-**Claude Code** —— 复制或软链到可被发现的 skills 目录：
+#### A. 人工安装 —— 给人看
+
+> 这是私密仓库。先配好 git 认证（被加为协作者 + `gh auth login` / SSH key / PAT），否则 clone/安装会失败。
+
+clone 仓库后，把文件夹复制或软链到可被发现的 skills 目录：
 
 ```bash
 # 个人级（所有项目可用）
@@ -130,13 +145,20 @@ cp -r sleepcast-script ~/.claude/skills/
 cp -r sleepcast-script <你的项目>/.claude/skills/
 ```
 
-**跨 agent 安装器**（Claude Code、Codex 等）：
+#### B. 自动安装 —— 给 agent 看
+
+如果你是正在安装本 skill 的 agent，请遵循以下指令：
+
+- 这是一个**自包含 skill**。把**整个** `sleepcast-script/` 目录放进目标 agent 的 skills 目录（Claude Code：`~/.claude/skills/` 或 `<项目>/.claude/skills/`）。
+- 入口文件是 `SKILL.md`。**无需构建步骤**，运行时除读取本地文件外无其他依赖。
+- `SKILL.md`、`user_profile.md`、`references/` 必须**保持在一起**，不可拆分；skill 通过相对路径读取 `references/` 和 `user_profile.md`。
+- **不要**靠读 `README.md` 来运行 skill——它是给人看的文档。运行只依据 `SKILL.md`。
+
+跨 agent 安装器（Claude Code、Codex 等）会自动完成上述操作：
 
 ```bash
 npx skills add <github-repo-url>
 ```
-
-> 这是私密仓库，只有被加为协作者、且本机配好 git 认证的人才能 clone/安装。
 
 ### 用法
 
