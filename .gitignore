@@ -1,0 +1,6 @@
+# Generated scripts
+output/
+
+# OS / editor
+.DS_Store
+Thumbs.db
