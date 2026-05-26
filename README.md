@@ -1,30 +1,28 @@
 # sleepcast-script
 
-*[English](#english) · [中文](#中文)*
+[English](./README.md) | [中文版](./README.zh.md)
 
 A self-contained Claude Code / Agent skill that generates **English adult-sleep SleepCast scripts** for VelaSleep — TTS-ready narration in the style of a native sleep story / sleep podcast.
 
 ---
 
-## Who reads what / 文件分工
+## Who reads what
 
 This package mixes **human-facing docs** and **agent-facing instructions**. Don't confuse them:
 
-| 文件 | 读者 / Audience | 作用 / Purpose |
+| File | Audience | Purpose |
 |---|---|---|
-| `README.md` (this file) | **人 / Humans** | 安装、用法、自定义说明。Agent 运行时不读它。 |
-| `SKILL.md` | **Agent** | Skill 的执行指令与触发元数据。**人一般不用看**，除非要修改 skill 的行为。 |
-| `user_profile.md` | **人维护，Agent 读取** | 目标听众与内容偏好。人编辑，agent 每次运行参考。 |
-| `references/sleepcast_script_prompt.md` | **人维护，Agent 读取** | 脚本规则唯一真源（标记/结构/节奏/禁区）。改脚本行为就改这里。 |
-| `references/script_example.md` | **人维护，Agent 读取** | 成品脚本形态参考。 |
+| `README.md` / `README.zh.md` | **Humans** | Install, usage, customization. The agent does not read these at runtime. |
+| `SKILL.md` | **Agent** | The skill's execution instructions and trigger metadata. Humans rarely need it unless changing the skill's behavior. |
+| `user_profile.md` | **Human-maintained, agent-read** | Target audience and content preferences. You edit it; the agent consults it every run. |
+| `references/sleepcast_script_prompt.md` | **Human-maintained, agent-read** | The single source of truth for script rules (markup / structure / rhythm / red lines). Edit this to change how scripts are written. |
+| `references/script_example.md` | **Human-maintained, agent-read** | Reference for the finished-script shape. |
 
-> 一句话：**README 给人看，SKILL.md 给 agent 看**；`user_profile.md` 和 `references/` 是两者共享的数据，由人维护、由 agent 读取。
+> In one line: **README is for humans, `SKILL.md` is for the agent.** `user_profile.md` and `references/` are shared data — maintained by humans, read by the agent.
 
 ---
 
-## English
-
-### What it does
+## What it does
 
 The skill works in two stages:
 
@@ -33,11 +31,16 @@ The skill works in two stages:
 
 It produces only the script text. TTS, mixing, BGM/SFX file production, and audio post are handled by a separate engineering backend and are out of scope.
 
-### Contents
+---
+
+## Contents
+
+This repository's **root is the skill package itself** — `SKILL.md` lives at the top level, not inside a wrapper folder. When you clone the repo you get a folder named after the repo (e.g. `VelaSleep/`); the skill's own name (used by installers) is `sleepcast-script`, taken from the `name` field in `SKILL.md`.
 
 ```
-sleepcast-script/
-  README.md                             # human docs (this file)
+<repo root>/                            # the skill package (clone dir, e.g. VelaSleep/)
+  README.md                             # human docs, English (this file)
+  README.zh.md                          # human docs, Chinese
   SKILL.md                              # agent instructions: trigger metadata + two-stage workflow
   user_profile.md                       # editable target-audience / content-preference profile
   references/
@@ -45,42 +48,52 @@ sleepcast-script/
     script_example.md                   # reference for the finished-script shape
 ```
 
-The skill reads its own bundled `references/` copies, so the package is portable — no dependency on files elsewhere in the repo.
+The skill reads its own bundled `references/` and `user_profile.md` by relative path, so the package is portable — no dependency on files elsewhere.
 
-### Install
+---
 
-This is a standard self-contained skill folder. The two paths below serve different installers.
+## Install
 
-#### A. Manual install — for a human
+> This is a **private** repo. Configure git auth first (be a collaborator + `gh auth login` / SSH key / PAT), otherwise both clone and `npx skills add` will fail.
 
-> This is a private repo. Configure git auth first (be a collaborator + `gh auth login` / SSH key / PAT), otherwise clone/install will fail.
+The skill must end up as a folder named `sleepcast-script` inside a discovered skills directory. The two paths below serve different installers.
 
-Clone the repo, then copy or symlink the folder into a discovered skills directory:
+### A. Manual install — for a human
+
+Clone the repo, then copy it into a skills directory **renamed to `sleepcast-script`** (the clone folder is named `VelaSleep`, not `sleepcast-script`):
 
 ```bash
+git clone https://github.com/ZimaBlue1226/VelaSleep.git
+
 # personal (all projects)
-cp -r sleepcast-script ~/.claude/skills/
+cp -r VelaSleep ~/.claude/skills/sleepcast-script
 
 # or project-level
-cp -r sleepcast-script <your-project>/.claude/skills/
+cp -r VelaSleep <your-project>/.claude/skills/sleepcast-script
 ```
 
-#### B. Automated install — for an agent
+(You may symlink instead of copy if you want edits in the clone to take effect live.)
 
-If you are an agent installing this skill, follow these directives:
+### B. Automated install — for an agent
 
-- This is a **self-contained skill**. Place the **entire** `sleepcast-script/` directory into the target agent's skills directory (Claude Code: `~/.claude/skills/` or `<project>/.claude/skills/`).
-- The entry point is `SKILL.md`. There is **no build step** and no runtime dependencies beyond reading local files.
-- Keep `SKILL.md`, `user_profile.md`, and `references/` **together** — never split them apart; the skill reads `references/` and `user_profile.md` by relative path.
-- Do **not** read `README.md` to operate the skill — it is human documentation. Operate only from `SKILL.md`.
-
-Cross-agent installer (Claude Code, Codex, etc.) — handles the above for you:
+The cross-agent installer detects the root-level `SKILL.md` and installs the skill under its frontmatter `name` (`sleepcast-script`) regardless of the repo/clone folder name:
 
 ```bash
-npx skills add <github-repo-url>
+npx skills add https://github.com/ZimaBlue1226/VelaSleep
 ```
 
-### Usage
+> Same private-repo caveat applies: `npx skills add` relies on your local git credentials, so you must already be authenticated to the private repo.
+
+If you are an agent installing this skill manually instead, follow these directives:
+
+- This is a **self-contained skill** and the **repo root is the skill** — place the repo's contents into a `sleepcast-script/` directory in the target agent's skills directory (Claude Code: `~/.claude/skills/` or `<project>/.claude/skills/`).
+- The entry point is `SKILL.md`. There is **no build step** and no runtime dependencies beyond reading local files.
+- Keep `SKILL.md`, `user_profile.md`, and `references/` **together** — never split them apart; the skill reads `references/` and `user_profile.md` by relative path.
+- Do **not** read `README.md` / `README.zh.md` to operate the skill — they are human documentation. Operate only from `SKILL.md`.
+
+---
+
+## Usage
 
 Invoke the skill and provide this run's background material — free text, local file paths, reference scripts/videos, competitor material, audience comments, or a content direction.
 
@@ -92,88 +105,10 @@ Invoke the skill and provide this run's background material — free text, local
 
 > The current version requires the 10-choose-1 flow; you cannot skip topic selection and name a theme directly.
 
-### Customizing
+---
+
+## Customizing
 
 Edit `user_profile.md` to adjust the target audience and content preferences — the skill consults it on every run, so you don't re-enter this each time.
 
-Script style, structure, markup rules, and content red lines live in `references/sleepcast_script_prompt.md`. To change how scripts are written, edit that file — it is the single source of truth.
-
----
-
-## 中文
-
-### 它做什么
-
-这是一个自包含的 Claude Code / Agent skill，为 VelaSleep 生成**英文成人助眠 SleepCast 脚本**——可直接用于 TTS 的、像 native sleep story / sleep podcast 的旁白。
-
-工作流分两阶段：
-
-1. **生成 10 个候选选题**：综合你提供的背景材料（逐字稿、题材分析、竞品笔记、内容方向）和维护好的听众画像后蒸馏而来。
-2. **生成完整脚本**：针对你选定的那一条。
-
-它只产出脚本文本。TTS、混音、BGM/SFX 文件制作、音频后期由独立工程后台处理，不在本 skill 范围内。
-
-### 目录结构
-
-```
-sleepcast-script/
-  README.md                             # 给人看的说明（本文件）
-  SKILL.md                              # 给 agent 看的执行指令：触发元数据 + 两阶段工作流
-  user_profile.md                       # 可编辑的目标听众 / 内容偏好画像
-  references/
-    sleepcast_script_prompt.md          # 脚本规则唯一真源
-    script_example.md                   # 成品脚本形态参考
-```
-
-Skill 读取的是自身 `references/` 内的副本，所以这个包是可移植的——不依赖仓库里其他位置的文件。
-
-### 安装
-
-这是一个标准的自包含 skill 文件夹。下面两条路径面向不同的安装者。
-
-#### A. 人工安装 —— 给人看
-
-> 这是私密仓库。先配好 git 认证（被加为协作者 + `gh auth login` / SSH key / PAT），否则 clone/安装会失败。
-
-clone 仓库后，把文件夹复制或软链到可被发现的 skills 目录：
-
-```bash
-# 个人级（所有项目可用）
-cp -r sleepcast-script ~/.claude/skills/
-
-# 或项目级
-cp -r sleepcast-script <你的项目>/.claude/skills/
-```
-
-#### B. 自动安装 —— 给 agent 看
-
-如果你是正在安装本 skill 的 agent，请遵循以下指令：
-
-- 这是一个**自包含 skill**。把**整个** `sleepcast-script/` 目录放进目标 agent 的 skills 目录（Claude Code：`~/.claude/skills/` 或 `<项目>/.claude/skills/`）。
-- 入口文件是 `SKILL.md`。**无需构建步骤**，运行时除读取本地文件外无其他依赖。
-- `SKILL.md`、`user_profile.md`、`references/` 必须**保持在一起**，不可拆分；skill 通过相对路径读取 `references/` 和 `user_profile.md`。
-- **不要**靠读 `README.md` 来运行 skill——它是给人看的文档。运行只依据 `SKILL.md`。
-
-跨 agent 安装器（Claude Code、Codex 等）会自动完成上述操作：
-
-```bash
-npx skills add <github-repo-url>
-```
-
-### 用法
-
-调用 skill，并提供本次任务的背景材料——文字说明、本地文件路径、参考脚本/视频、竞品素材、评论反馈或内容方向均可。
-
-1. Skill 给出 **10 个候选选题**（英文标题 + 中文说明），你选一个。
-2. 可选指定：
-   - 脚本参考时长（默认 **`30min`**）
-   - 开头 BGM 单独铺底时长（默认 **`8s`**）
-3. Skill 把完整英文脚本写入 `output/<YYYY-MM-DD>-<slug>.md`。
-
-> 当前版本强制走 10 选 1 流程，不支持跳过选题、直接指定主题。
-
-### 自定义
-
-编辑 `user_profile.md` 调整目标听众与内容偏好——skill 每次运行都会参考它，无需每次重复输入。
-
-脚本风格、结构、标记规则和内容禁区都在 `references/sleepcast_script_prompt.md` 里。要改脚本怎么写，就改这个文件——它是唯一真源。
+Script style, structure, markup rules, and content red lines live in `references/sleepcast_script_prompt.md`. To change how scripts are written, edit that file — it is the single source of truth. After editing any file, re-push the repo so installs stay in sync.
