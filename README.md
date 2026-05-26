@@ -1,4 +1,4 @@
-# Sleepcast-Scripts-Cook
+# sleepcast-scripts-cook
 
 [English](./README.md) | [中文版](./README.zh.md)
 
@@ -35,10 +35,10 @@ It produces only the script text. TTS, mixing, BGM/SFX file production, and audi
 
 ## Contents
 
-This repository's **root is the skill package itself** — `SKILL.md` lives at the top level, not inside a wrapper folder. When you clone the repo you get a folder named after the repo (`Sleepcast-Scripts-Cook/`); the skill's own name (used by installers) is `sleepcast-script`, taken from the `name` field in `SKILL.md`.
+This repository's **root is the skill package itself** — `SKILL.md` lives at the top level, not inside a wrapper folder. The skill name, the repo name, and the clone folder name are all the same: `sleepcast-scripts-cook` (the name comes from the `name` field in `SKILL.md`). So cloning gives a folder that is already named correctly for installation.
 
 ```
-<repo root>/                            # the skill package (clone dir: Sleepcast-Scripts-Cook/)
+sleepcast-scripts-cook/                 # repo root = skill package = clone dir
   README.md                             # human docs, English (this file)
   README.zh.md                          # human docs, Chinese
   SKILL.md                              # agent instructions: trigger metadata + two-stage workflow
@@ -56,37 +56,37 @@ The skill reads its own bundled `references/` and `user_profile.md` by relative 
 
 > This is a **private** repo. Configure git auth first (be a collaborator + `gh auth login` / SSH key / PAT), otherwise both clone and `npx skills add` will fail.
 
-The skill must end up as a folder named `sleepcast-script` inside a discovered skills directory. The two paths below serve different installers.
+The skill must end up as a folder named `sleepcast-scripts-cook` inside a discovered skills directory. The two paths below serve different installers.
 
 ### A. Manual install — for a human
 
-Clone the repo, then copy it into a skills directory **renamed to `sleepcast-script`** (the clone folder is named `Sleepcast-Scripts-Cook`, not `sleepcast-script`):
+Clone the repo and copy it straight into a skills directory — the clone folder is already named `sleepcast-scripts-cook`, so no rename is needed:
 
 ```bash
-git clone https://github.com/ZimaBlue1226/Sleepcast-Scripts-Cook.git
+git clone https://github.com/ZimaBlue1226/sleepcast-scripts-cook.git
 
 # personal (all projects)
-cp -r Sleepcast-Scripts-Cook ~/.claude/skills/sleepcast-script
+cp -r sleepcast-scripts-cook ~/.claude/skills/
 
 # or project-level
-cp -r Sleepcast-Scripts-Cook <your-project>/.claude/skills/sleepcast-script
+cp -r sleepcast-scripts-cook <your-project>/.claude/skills/
 ```
 
 (You may symlink instead of copy if you want edits in the clone to take effect live.)
 
 ### B. Automated install — for an agent
 
-The cross-agent installer detects the root-level `SKILL.md` and installs the skill under its frontmatter `name` (`sleepcast-script`) regardless of the repo/clone folder name:
+The cross-agent installer detects the root-level `SKILL.md` and installs the skill under its frontmatter `name` (`sleepcast-scripts-cook`):
 
 ```bash
-npx skills add https://github.com/ZimaBlue1226/Sleepcast-Scripts-Cook
+npx skills add https://github.com/ZimaBlue1226/sleepcast-scripts-cook
 ```
 
 > Same private-repo caveat applies: `npx skills add` relies on your local git credentials, so you must already be authenticated to the private repo.
 
 If you are an agent installing this skill manually instead, follow these directives:
 
-- This is a **self-contained skill** and the **repo root is the skill** — place the repo's contents into a `sleepcast-script/` directory in the target agent's skills directory (Claude Code: `~/.claude/skills/` or `<project>/.claude/skills/`).
+- This is a **self-contained skill** and the **repo root is the skill** — place the repo's contents into a `sleepcast-scripts-cook/` directory in the target agent's skills directory (Claude Code: `~/.claude/skills/` or `<project>/.claude/skills/`).
 - The entry point is `SKILL.md`. There is **no build step** and no runtime dependencies beyond reading local files.
 - Keep `SKILL.md`, `user_profile.md`, and `references/` **together** — never split them apart; the skill reads `references/` and `user_profile.md` by relative path.
 - Do **not** read `README.md` / `README.zh.md` to operate the skill — they are human documentation. Operate only from `SKILL.md`.

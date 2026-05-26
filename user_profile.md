@@ -1,6 +1,6 @@
 # SleepCast 用户画像 / Audience Profile
 
-> 本文件描述 SleepCast 的目标听众与内容偏好，供 `sleepcast-script` skill 在每次生成选题和脚本时默认参考。
+> 本文件描述 SleepCast 的目标听众与内容偏好，供 `sleepcast-scripts-cook` skill 在每次生成选题和脚本时默认参考。
 > 你可以自行增删改本文件，无需在每次使用 skill 时重复输入这些信息。
 > 初始内容根据 VelaSleep 项目背景（project_context.md 第 2 节）填充。
 

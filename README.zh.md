@@ -1,4 +1,4 @@
-# Sleepcast-Scripts-Cook
+# sleepcast-scripts-cook
 
 [中文版](./README.zh.md) | [English](./README.md)
 
@@ -35,10 +35,10 @@
 
 ## 目录结构
 
-本仓库的**根目录就是 skill 包本身**——`SKILL.md` 在仓库顶层，而不是套在某个子文件夹里。clone 仓库后你得到的是一个以仓库命名的文件夹（`Sleepcast-Scripts-Cook/`）；而 skill 自身的名字（安装器使用的名字）是 `sleepcast-script`，取自 `SKILL.md` 里的 `name` 字段。
+本仓库的**根目录就是 skill 包本身**——`SKILL.md` 在仓库顶层，而不是套在某个子文件夹里。skill 名、仓库名、clone 出来的文件夹名三者一致，都是 `sleepcast-scripts-cook`（名字取自 `SKILL.md` 里的 `name` 字段）。因此 clone 下来的文件夹名已经符合安装要求。
 
 ```
-<仓库根目录>/                            # skill 包本身（clone 出来的目录：Sleepcast-Scripts-Cook/）
+sleepcast-scripts-cook/                 # 仓库根目录 = skill 包 = clone 出来的目录
   README.md                             # 给人看的文档，英文
   README.zh.md                          # 给人看的文档，中文（本文件）
   SKILL.md                              # 给 agent 看的执行指令：触发元数据 + 两阶段工作流
@@ -56,37 +56,37 @@ Skill 通过相对路径读取自身的 `references/` 和 `user_profile.md`，�
 
 > 这是**私密**仓库。先配好 git 认证（被加为协作者 + `gh auth login` / SSH key / PAT），否则 clone 和 `npx skills add` 都会失败。
 
-Skill 最终必须以一个名为 `sleepcast-script` 的文件夹存在于可被发现的 skills 目录中。下面两条路径面向不同的安装者。
+Skill 最终必须以一个名为 `sleepcast-scripts-cook` 的文件夹存在于可被发现的 skills 目录中。下面两条路径面向不同的安装者。
 
 ### A. 人工安装 —— 给人看
 
-clone 仓库后，把它复制进 skills 目录、并**重命名为 `sleepcast-script`**（clone 出来的文件夹叫 `Sleepcast-Scripts-Cook`，不是 `sleepcast-script`）：
+clone 仓库后直接复制进 skills 目录即可——clone 出来的文件夹已经叫 `sleepcast-scripts-cook`，无需重命名：
 
 ```bash
-git clone https://github.com/ZimaBlue1226/Sleepcast-Scripts-Cook.git
+git clone https://github.com/ZimaBlue1226/sleepcast-scripts-cook.git
 
 # 个人级（所有项目可用）
-cp -r Sleepcast-Scripts-Cook ~/.claude/skills/sleepcast-script
+cp -r sleepcast-scripts-cook ~/.claude/skills/
 
 # 或项目级
-cp -r Sleepcast-Scripts-Cook <你的项目>/.claude/skills/sleepcast-script
+cp -r sleepcast-scripts-cook <你的项目>/.claude/skills/
 ```
 
 （如果希望在 clone 里改动能实时生效，可用软链代替复制。）
 
 ### B. 自动安装 —— 给 agent 看
 
-跨 agent 安装器会识别根目录的 `SKILL.md`，并按其 frontmatter `name`（`sleepcast-script`）安装，与仓库名/clone 文件夹名无关：
+跨 agent 安装器会识别根目录的 `SKILL.md`，并按其 frontmatter `name`（`sleepcast-scripts-cook`）安装：
 
 ```bash
-npx skills add https://github.com/ZimaBlue1226/Sleepcast-Scripts-Cook
+npx skills add https://github.com/ZimaBlue1226/sleepcast-scripts-cook
 ```
 
 > 同样有私库限制：`npx skills add` 依赖本地 git 凭证，你必须已对该私密仓库完成认证。
 
 如果你是正在**手动**安装本 skill 的 agent，请遵循以下指令：
 
-- 这是一个**自包含 skill**，且**仓库根目录即 skill**——把仓库内容放进目标 agent skills 目录下的 `sleepcast-script/` 文件夹（Claude Code：`~/.claude/skills/` 或 `<项目>/.claude/skills/`）。
+- 这是一个**自包含 skill**，且**仓库根目录即 skill**——把仓库内容放进目标 agent skills 目录下的 `sleepcast-scripts-cook/` 文件夹（Claude Code：`~/.claude/skills/` 或 `<项目>/.claude/skills/`）。
 - 入口文件是 `SKILL.md`。**无需构建步骤**，运行时除读取本地文件外无其他依赖。
 - `SKILL.md`、`user_profile.md`、`references/` 必须**保持在一起**，不可拆分；skill 通过相对路径读取 `references/` 和 `user_profile.md`。
 - **不要**靠读 `README.md` / `README.zh.md` 来运行 skill——它们是给人看的文档。运行只依据 `SKILL.md`。

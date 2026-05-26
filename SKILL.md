@@ -1,5 +1,5 @@
 ---
-name: sleepcast-script
+name: sleepcast-scripts-cook
 description: Generate an English adult-sleep SleepCast script (sleep-audio narration / sleep story / sleep podcast) for VelaSleep. Use when the user wants to create, write, or draft a SleepCast script, or asks for sleep-audio narration topics. The skill first proposes 10 topic candidates from the user's background material and a maintained audience profile, then — after the user picks one — writes a full TTS-ready English script. It does NOT do TTS, mixing, BGM/SFX production, or audio post.
 ---
 
