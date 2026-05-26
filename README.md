@@ -35,10 +35,10 @@ It produces only the script text. TTS, mixing, BGM/SFX file production, and audi
 
 ## Contents
 
-This repository's **root is the skill package itself** — `SKILL.md` lives at the top level, not inside a wrapper folder. When you clone the repo you get a folder named after the repo (e.g. `VelaSleep/`); the skill's own name (used by installers) is `sleepcast-script`, taken from the `name` field in `SKILL.md`.
+This repository's **root is the skill package itself** — `SKILL.md` lives at the top level, not inside a wrapper folder. When you clone the repo you get a folder named after the repo (`Sleepcast-Scripts-Cook/`); the skill's own name (used by installers) is `sleepcast-script`, taken from the `name` field in `SKILL.md`.
 
 ```
-<repo root>/                            # the skill package (clone dir, e.g. VelaSleep/)
+<repo root>/                            # the skill package (clone dir: Sleepcast-Scripts-Cook/)
   README.md                             # human docs, English (this file)
   README.zh.md                          # human docs, Chinese
   SKILL.md                              # agent instructions: trigger metadata + two-stage workflow
@@ -60,16 +60,16 @@ The skill must end up as a folder named `sleepcast-script` inside a discovered s
 
 ### A. Manual install — for a human
 
-Clone the repo, then copy it into a skills directory **renamed to `sleepcast-script`** (the clone folder is named `VelaSleep`, not `sleepcast-script`):
+Clone the repo, then copy it into a skills directory **renamed to `sleepcast-script`** (the clone folder is named `Sleepcast-Scripts-Cook`, not `sleepcast-script`):
 
 ```bash
-git clone https://github.com/ZimaBlue1226/VelaSleep.git
+git clone https://github.com/ZimaBlue1226/Sleepcast-Scripts-Cook.git
 
 # personal (all projects)
-cp -r VelaSleep ~/.claude/skills/sleepcast-script
+cp -r Sleepcast-Scripts-Cook ~/.claude/skills/sleepcast-script
 
 # or project-level
-cp -r VelaSleep <your-project>/.claude/skills/sleepcast-script
+cp -r Sleepcast-Scripts-Cook <your-project>/.claude/skills/sleepcast-script
 ```
 
 (You may symlink instead of copy if you want edits in the clone to take effect live.)
@@ -79,7 +79,7 @@ cp -r VelaSleep <your-project>/.claude/skills/sleepcast-script
 The cross-agent installer detects the root-level `SKILL.md` and installs the skill under its frontmatter `name` (`sleepcast-script`) regardless of the repo/clone folder name:
 
 ```bash
-npx skills add https://github.com/ZimaBlue1226/VelaSleep
+npx skills add https://github.com/ZimaBlue1226/Sleepcast-Scripts-Cook
 ```
 
 > Same private-repo caveat applies: `npx skills add` relies on your local git credentials, so you must already be authenticated to the private repo.

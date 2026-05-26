@@ -35,10 +35,10 @@
 
 ## 目录结构
 
-本仓库的**根目录就是 skill 包本身**——`SKILL.md` 在仓库顶层，而不是套在某个子文件夹里。clone 仓库后你得到的是一个以仓库命名的文件夹（如 `VelaSleep/`）；而 skill 自身的名字（安装器使用的名字）是 `sleepcast-script`，取自 `SKILL.md` 里的 `name` 字段。
+本仓库的**根目录就是 skill 包本身**——`SKILL.md` 在仓库顶层，而不是套在某个子文件夹里。clone 仓库后你得到的是一个以仓库命名的文件夹（`Sleepcast-Scripts-Cook/`）；而 skill 自身的名字（安装器使用的名字）是 `sleepcast-script`，取自 `SKILL.md` 里的 `name` 字段。
 
 ```
-<仓库根目录>/                            # skill 包本身（clone 出来的目录，如 VelaSleep/）
+<仓库根目录>/                            # skill 包本身（clone 出来的目录：Sleepcast-Scripts-Cook/）
   README.md                             # 给人看的文档，英文
   README.zh.md                          # 给人看的文档，中文（本文件）
   SKILL.md                              # 给 agent 看的执行指令：触发元数据 + 两阶段工作流
@@ -60,16 +60,16 @@ Skill 最终必须以一个名为 `sleepcast-script` 的文件夹存在于可被
 
 ### A. 人工安装 —— 给人看
 
-clone 仓库后，把它复制进 skills 目录、并**重命名为 `sleepcast-script`**（clone 出来的文件夹叫 `VelaSleep`，不是 `sleepcast-script`）：
+clone 仓库后，把它复制进 skills 目录、并**重命名为 `sleepcast-script`**（clone 出来的文件夹叫 `Sleepcast-Scripts-Cook`，不是 `sleepcast-script`）：
 
 ```bash
-git clone https://github.com/ZimaBlue1226/VelaSleep.git
+git clone https://github.com/ZimaBlue1226/Sleepcast-Scripts-Cook.git
 
 # 个人级（所有项目可用）
-cp -r VelaSleep ~/.claude/skills/sleepcast-script
+cp -r Sleepcast-Scripts-Cook ~/.claude/skills/sleepcast-script
 
 # 或项目级
-cp -r VelaSleep <你的项目>/.claude/skills/sleepcast-script
+cp -r Sleepcast-Scripts-Cook <你的项目>/.claude/skills/sleepcast-script
 ```
 
 （如果希望在 clone 里改动能实时生效，可用软链代替复制。）
@@ -79,7 +79,7 @@ cp -r VelaSleep <你的项目>/.claude/skills/sleepcast-script
 跨 agent 安装器会识别根目录的 `SKILL.md`，并按其 frontmatter `name`（`sleepcast-script`）安装，与仓库名/clone 文件夹名无关：
 
 ```bash
-npx skills add https://github.com/ZimaBlue1226/VelaSleep
+npx skills add https://github.com/ZimaBlue1226/Sleepcast-Scripts-Cook
 ```
 
 > 同样有私库限制：`npx skills add` 依赖本地 git 凭证，你必须已对该私密仓库完成认证。
