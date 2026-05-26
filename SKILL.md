@@ -12,21 +12,20 @@ This skill ONLY produces the script text. TTS, mixing, BGM/SFX file production, 
 
 ## Files in this skill package
 
+- `script_rules.md` — **the core of this skill.** The single source of truth for how scripts are written: the audio markup system, the 6 PARTs (0–5), the rhythm arc, sentence-length and pause rules, and the content red lines. This is not "reference material" — it *is* the generation engine. Follow it exactly in Stage 2.
 - `user_profile.md` — the target audience and content-preference profile. Always consult it. The user may edit it freely.
-- `references/sleepcast_script_prompt.md` — the **single source of truth** for script rules (markup, PART structure, rhythm, content red lines). Always follow it exactly in Stage 2.
-- `references/script_example.md` — the reference for the desired finished-script shape.
+- `examples/script_example.md` — a reference example showing the desired finished-script shape.
 
 Read these from this package, not from elsewhere.
 
 ---
 
-## Stage 0 · Prepare
+## Stage 0 · Gather input and confirm
 
-1. Read `user_profile.md`, `references/sleepcast_script_prompt.md`, and `references/script_example.md` from this package.
-2. Gather the user's input for this run. It may include: free-text direction typed in the client, local file paths, reference videos/scripts, competitor material, audience comments, or a content direction note.
-3. **Parse the provided material deeply** — including verbatim transcripts (逐字稿) and topic/theme analyses (题材分析). These are a primary source for both topic selection and concrete script detail. Do not ignore them; mine them for specific imagery, settings, sensory cues, and differentiation angles.
-
-If the user gave no material at all, ask once for the background/direction before proceeding.
+1. Read `script_rules.md`, `user_profile.md`, and `examples/script_example.md` from this package.
+2. Collect this run's material. The user may paste a block of text, give one or more local file paths, point at reference scripts/videos or competitor material, or say there's nothing extra (in which case `user_profile.md` plus the project background carry the run). This material is **ad-hoc and per-run — it never needs to be added to the skill package**; `examples/` holds only the bundled sample and is not a dropbox for user material.
+3. If file paths are given, read them. **Parse the material deeply** — especially verbatim transcripts (逐字稿) and topic/theme analyses (题材分析); these are a primary source for both topic selection and concrete script detail. Mine them for specific imagery, settings, sensory cues, and differentiation angles.
+4. **Confirm before proceeding.** Briefly tell the user what you took in and how you read it — which files/text, and the key imagery or direction you extracted. Then stop and wait for the user to confirm; only move on to Stage 1 once they say to continue. This gate keeps you from generating off a misread.
 
 ---
 
@@ -76,8 +75,8 @@ Build a structured brief that becomes the direct input to script generation:
 
 ### 2.3 Write the script
 
-- Follow **every** rule in `references/sleepcast_script_prompt.md` exactly: the audio markup system, the 6 PARTs (0–5), the rhythm arc, sentence-length limits, pause rules, and the forbidden-element list.
-- Match the finished-script shape of `references/script_example.md`.
+- Follow **every** rule in `script_rules.md` exactly: the audio markup system, the 6 PARTs (0–5), the rhythm arc, sentence-length limits, pause rules, and the forbidden-element list.
+- Match the finished-script shape of `examples/script_example.md`.
 - Honor the opening-audio rule: emit `[BGM_START:…]` and `[BGM_DURATION:…]`, then a line-of-its-own `<break time="8s"/>` (use the resolved BGM lead-in value), then `[PART 0: Opening]` and the narration.
 - The Wind Down technique named in PART 0 must match the actual practice in PART 1, and must be the one chosen in the brief.
 

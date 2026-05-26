@@ -14,11 +14,11 @@
 |---|---|---|
 | `README.md` / `README.zh.md` | **人** | 安装、用法、自定义说明。Agent 运行时不读它们。 |
 | `SKILL.md` | **Agent** | Skill 的执行指令与触发元数据。除非要修改 skill 行为，否则人一般不用看。 |
+| `script_rules.md` | **核心，Agent 读取** | **skill 的核心**——脚本规则唯一真源（标记/6 个 PART/节奏/禁区）。它不是"参考资料"，而*就是*生成引擎。改脚本行为就改这里。 |
 | `user_profile.md` | **人维护，Agent 读取** | 目标听众与内容偏好。人编辑，agent 每次运行参考。 |
-| `references/sleepcast_script_prompt.md` | **人维护，Agent 读取** | 脚本规则唯一真源（标记/结构/节奏/禁区）。改脚本行为就改这里。 |
-| `references/script_example.md` | **人维护，Agent 读取** | 成品脚本形态参考。 |
+| `examples/script_example.md` | **参考，Agent 读取** | 成品脚本形态的参考示例。 |
 
-> 一句话：**README 给人看，`SKILL.md` 给 agent 看**；`user_profile.md` 和 `references/` 是两者共享的数据，由人维护、由 agent 读取。
+> 一句话：**README 给人看，`SKILL.md` 给 agent 看**；`script_rules.md` 是核心引擎，`user_profile.md` 和 `examples/` 是共享数据，由人维护、由 agent 读取。
 
 ---
 
@@ -42,13 +42,13 @@ sleepcast-scripts-cook/                 # 仓库根目录 = skill 包 = clone �
   README.md                             # 给人看的文档，英文
   README.zh.md                          # 给人看的文档，中文（本文件）
   SKILL.md                              # 给 agent 看的执行指令：触发元数据 + 两阶段工作流
+  script_rules.md                       # 核心：脚本规则唯一真源
   user_profile.md                       # 可编辑的目标听众 / 内容偏好画像
-  references/
-    sleepcast_script_prompt.md          # 脚本规则唯一真源
-    script_example.md                   # 成品脚本形态参考
+  examples/
+    script_example.md                   # 成品脚本形态的参考示例
 ```
 
-Skill 通过相对路径读取自身的 `references/` 和 `user_profile.md`，所以这个包是可移植的——不依赖仓库里其他位置的文件。
+Skill 通过相对路径读取自身的 `script_rules.md`、`user_profile.md` 和 `examples/`，所以这个包是可移植的——不依赖仓库里其他位置的文件。
 
 ---
 
@@ -88,20 +88,21 @@ npx skills add https://github.com/ZimaBlue1226/sleepcast-scripts-cook
 
 - 这是一个**自包含 skill**，且**仓库根目录即 skill**——把仓库内容放进目标 agent skills 目录下的 `sleepcast-scripts-cook/` 文件夹（Claude Code：`~/.claude/skills/` 或 `<项目>/.claude/skills/`）。
 - 入口文件是 `SKILL.md`。**无需构建步骤**，运行时除读取本地文件外无其他依赖。
-- `SKILL.md`、`user_profile.md`、`references/` 必须**保持在一起**，不可拆分；skill 通过相对路径读取 `references/` 和 `user_profile.md`。
+- `SKILL.md`、`script_rules.md`、`user_profile.md`、`examples/` 必须**保持在一起**，不可拆分；skill 通过相对路径读取它们。
 - **不要**靠读 `README.md` / `README.zh.md` 来运行 skill——它们是给人看的文档。运行只依据 `SKILL.md`。
 
 ---
 
 ## 用法
 
-调用 skill，并提供本次任务的背景材料——文字说明、本地文件路径、参考脚本/视频、竞品素材、评论反馈或内容方向均可。
+调用 skill，并提供本次任务的素材——可以贴一段文本、给一个/多个本地文件路径、指参考脚本/视频或竞品素材，也可以什么都不额外给（由听众画像兜底）。素材是临时的、按次提供，**永远不需要加进 skill 包里**。
 
-1. Skill 给出 **10 个候选选题**（英文标题 + 中文说明），你选一个。
-2. 可选指定：
+1. Skill 读取你的素材，**先复述它理解到的内容、等你确认**，确认后才开始生成。
+2. Skill 给出 **10 个候选选题**（英文标题 + 中文说明），你选一个。
+3. 可选指定：
    - 脚本参考时长（默认 **`30min`**）
    - 开头 BGM 单独铺底时长（默认 **`8s`**）
-3. Skill 把完整英文脚本写入 `output/<YYYY-MM-DD>-<slug>.md`。
+4. Skill 把完整英文脚本写入 `output/<YYYY-MM-DD>-<slug>.md`。
 
 > 当前版本强制走 10 选 1 流程，不支持跳过选题、直接指定主题。
 
@@ -111,4 +112,4 @@ npx skills add https://github.com/ZimaBlue1226/sleepcast-scripts-cook
 
 编辑 `user_profile.md` 调整目标听众与内容偏好——skill 每次运行都会参考它，无需每次重复输入。
 
-脚本风格、结构、标记规则和内容禁区都在 `references/sleepcast_script_prompt.md` 里。要改脚本怎么写，就改这个文件——它是唯一真源。改完任何文件后记得重新 push 仓库，保持安装同步。
+脚本风格、结构、标记规则和内容禁区都在 `script_rules.md` 里——它是 skill 的核心。要改脚本怎么写，就改这个文件，它是唯一真源。改完任何文件后记得重新 push 仓库，保持安装同步。
