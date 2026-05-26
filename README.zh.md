@@ -1,4 +1,4 @@
-# sleepcast-script
+# Sleepcast-Scripts-Cook
 
 [中文版](./README.zh.md) | [English](./README.md)
 
