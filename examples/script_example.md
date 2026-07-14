@@ -1,6 +1,5 @@
 [BGM_START:Deep low-frequency ambient drone with low-pass filtered rain and very faint warm room tone:0.14]
 [BGM_DURATION:45MIN]
-[SFX:Soft steady rain on old window glass, muffled and distant, no voices:0.24:25]
 
 <break time="8s"/>
 
@@ -120,7 +119,6 @@ The door gives with a slow wooden murmur.<break time="2s"/>
 A small bell shifts above the frame, but it barely sounds.<break time="2s"/>
 More of a breath of metal than a ring.<break time="2.5s"/>
 
-[SFX:Heavy old wooden door opening slowly, soft brass bell movement, rain becoming muffled indoors, no voices:0.30:12]
 
 You step inside.<break time="2s"/>
 The street falls away behind you.<break time="2s"/>
@@ -167,7 +165,6 @@ Near the back, an old pendulum clock stands against the wall.<break time="2s"/>
 It is not loud.<break time="1.5s"/>
 Its ticking is slow enough to disappear into the rain, then return again when the room becomes especially still.<break time="2.5s"/>
 
-[SFX:Very soft old pendulum clock ticking under muffled rain, slow and distant, no voices:0.10:30]
 
 There may be a restorer here, somewhere behind the lamp glow.<break time="2.5s"/>
 A quiet presence at the edge of the workbench.<break time="2s"/>
@@ -293,7 +290,6 @@ Its handle is dark and narrow, with a band of dull metal near the bristles.<brea
 The bristles themselves are pale at the tips and darker toward the base.<break time="2s"/>
 They spread slightly where they touch the felt, each fine hair bending under its own small weight.<break time="2.5s"/>
 
-[SFX:Subtle soft brush moving once across old wood and felt, delicate texture only, no voices:0.12:9]
 
 It is easy to imagine the brush moving over carved wood.<break time="2.5s"/>
 Dust lifting from the hollow of a leaf pattern.<break time="2s"/>
@@ -400,6 +396,5 @@ Or the ribbon.<break time="3.5s"/>
 Or the quiet gold lines on the mended bowl.<break time="3.5s"/>
 Or perhaps it will touch nothing in particular, and simply enter the room slowly, softly, without needing to be named...
 
-[SFX:Rain and room tone slowly receding into a soft distant hush, no voices:0.08:18]
 [BGM_FADE:18]
 [BGM_STOP]
