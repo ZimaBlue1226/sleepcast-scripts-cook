@@ -1,7 +1,7 @@
 [BGM_START:Deep low-frequency ambient drone with low-pass filtered rain and very faint warm room tone:0.14]
 [BGM_DURATION:45MIN]
 
-<break time="8s"/>
+<break time="4s"/>
 
 [PART 0: Opening]
 

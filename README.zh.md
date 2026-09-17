@@ -1,115 +1,39 @@
 # sleepcast-scripts-cook
 
-[中文版](./README.zh.md) | [English](./README.md)
+为北美成年人创作 SleepCast 主题与中英对照脚本。先选择复古或第二世界幻想，确认主题后写作，最终交付一个包含两份完整脚本的 Markdown 文件。
 
-一个自包含的 Claude Code / Agent skill，为 VelaSleep 生成**英文成人助眠 SleepCast 脚本**——可直接用于 TTS 的、像 native sleep story / sleep podcast 的旁白。
+本包独立运行，无需飞书或 MCP。直接修改包内文件即可迭代；不自动获取外部 SOP，也不自动提交或推送。
 
----
+## 使用
 
-## 文件分工
+执行指令使用英文；用户讨论与主题说明默认中文，最终脚本仍为中英对照。参考分析提炼内容模型，复古选题使用便于比较的候选卡片，选定信息在写作前完整带入工作简报。受众生活情境用作创作参考，不作为已验证的人口统计事实。
 
-本包同时包含**给人看的文档**和**给 agent 看的指令**，不要混淆：
+调用 skill，提供类别和本次方向或参考材料。未选类别时先询问类别。
 
-| 文件 | 读者 | 作用 |
-|---|---|---|
-| `README.md` / `README.zh.md` | **人** | 安装、用法、自定义说明。Agent 运行时不读它们。 |
-| `SKILL.md` | **Agent** | Skill 的执行指令与触发元数据。除非要修改 skill 行为，否则人一般不用看。 |
-| `script_rules.md` | **核心，Agent 读取** | **skill 的核心**——脚本规则唯一真源（标记/6 个 PART/节奏/禁区）。它不是"参考资料"，而*就是*生成引擎。改脚本行为就改这里。 |
-| `user_profile.md` | **人维护，Agent 读取** | 目标听众与内容偏好。人编辑，agent 每次运行参考。 |
-| `examples/script_example.md` | **参考，Agent 读取** | 成品脚本形态的参考示例。 |
+- 复古生成十个候选，选定后写作。
+- 第二世界幻想没有方向时生成十份完整主题大纲；有方向时完善一份，确认后写作。
+- 已明确确认的完整主题可直接进入写作。
+- 最终文件只有英文脚本与中文对照，主题大纲留在对话中。
 
-> 一句话：**README 给人看，`SKILL.md` 给 agent 看**；`script_rules.md` 是核心引擎，`user_profile.md` 和 `examples/` 是共享数据，由人维护、由 agent 读取。
+默认人声目标约三十分钟、BGM 总时长四十五分钟、开头铺底四秒。约 380–400 行只作参考，实际人声时长需合成验证。文件优先写到你指定的工作目录；未指定且项目无放置规则时写到 `output/`。
 
----
+## 安装与维护
 
-## 它做什么
+将整个 `sleepcast-scripts-cook` 文件夹放入 agent 可发现的 skills 目录，保留内部结构。已有私有仓库的安装方式可继续使用，但本地修改不会自动更新远端。
 
-工作流分两阶段：
+| 文件 | 用途 |
+|---|---|
+| `SKILL.md` | 类别选择、主题确认、写作及交付流程 |
+| `script_rules.md` | 共同制作规格与单文件双语交付格式 |
+| `user_profile.md` | 受众及内容边界 |
+| `references/classic-topics.md` | 复古选题流程 |
+| `references/fantasy-direction.md` | 第二世界幻想定义与大纲要求 |
+| `references/fantasy-topic-prompt.md` | 实际执行的幻想主题生成提示词 |
+| `references/*-script-rules.md` | 两类独立写作规则 |
+| `references/duration-reference.md` | 已合成示例的人声时长经验数据与估算边界 |
+| `examples/` | 写法示例；规则优先于示例 |
+| `scripts/check_script.py` | 可选 Python 3 格式自检，无第三方依赖 |
 
-1. **生成 10 个候选选题**：综合你提供的背景材料（逐字稿、题材分析、竞品笔记、内容方向）和维护好的听众画像后蒸馏而来。
-2. **生成完整脚本**：针对你选定的那一条。
+运行 `python scripts/check_script.py 交付文件.md` 检查格式；可加 `--wpm 125` 按包内经验区间的统一规划值估算。当前经验范围约121–129.5净词/分钟，来源与限制见人声时长参考。它不审核内容，不证明新音频实际时长。
 
-它只产出脚本文本。TTS、混音、BGM/SFX 文件制作、音频后期由独立工程后台处理，不在本 skill 范围内。
-
----
-
-## 目录结构
-
-本仓库的**根目录就是 skill 包本身**——`SKILL.md` 在仓库顶层，而不是套在某个子文件夹里。skill 名、仓库名、clone 出来的文件夹名三者一致，都是 `sleepcast-scripts-cook`（名字取自 `SKILL.md` 里的 `name` 字段）。因此 clone 下来的文件夹名已经符合安装要求。
-
-```
-sleepcast-scripts-cook/                 # 仓库根目录 = skill 包 = clone 出来的目录
-  README.md                             # 给人看的文档，英文
-  README.zh.md                          # 给人看的文档，中文（本文件）
-  SKILL.md                              # 给 agent 看的执行指令：触发元数据 + 两阶段工作流
-  script_rules.md                       # 核心：脚本规则唯一真源
-  user_profile.md                       # 可编辑的目标听众 / 内容偏好画像
-  examples/
-    script_example.md                   # 成品脚本形态的参考示例
-```
-
-Skill 通过相对路径读取自身的 `script_rules.md`、`user_profile.md` 和 `examples/`，所以这个包是可移植的——不依赖仓库里其他位置的文件。
-
----
-
-## 安装
-
-> 这是**私密**仓库。先配好 git 认证（被加为协作者 + `gh auth login` / SSH key / PAT），否则 clone 和 `npx skills add` 都会失败。
-
-Skill 最终必须以一个名为 `sleepcast-scripts-cook` 的文件夹存在于可被发现的 skills 目录中。下面两条路径面向不同的安装者。
-
-### A. 人工安装 —— 给人看
-
-clone 仓库后直接复制进 skills 目录即可——clone 出来的文件夹已经叫 `sleepcast-scripts-cook`，无需重命名：
-
-```bash
-git clone https://github.com/ZimaBlue1226/sleepcast-scripts-cook.git
-
-# 个人级（所有项目可用）
-cp -r sleepcast-scripts-cook ~/.claude/skills/
-
-# 或项目级
-cp -r sleepcast-scripts-cook <你的项目>/.claude/skills/
-```
-
-（如果希望在 clone 里改动能实时生效，可用软链代替复制。）
-
-### B. 自动安装 —— 给 agent 看
-
-跨 agent 安装器会识别根目录的 `SKILL.md`，并按其 frontmatter `name`（`sleepcast-scripts-cook`）安装：
-
-```bash
-npx skills add https://github.com/ZimaBlue1226/sleepcast-scripts-cook
-```
-
-> 同样有私库限制：`npx skills add` 依赖本地 git 凭证，你必须已对该私密仓库完成认证。
-
-如果你是正在**手动**安装本 skill 的 agent，请遵循以下指令：
-
-- 这是一个**自包含 skill**，且**仓库根目录即 skill**——把仓库内容放进目标 agent skills 目录下的 `sleepcast-scripts-cook/` 文件夹（Claude Code：`~/.claude/skills/` 或 `<项目>/.claude/skills/`）。
-- 入口文件是 `SKILL.md`。**无需构建步骤**，运行时除读取本地文件外无其他依赖。
-- `SKILL.md`、`script_rules.md`、`user_profile.md`、`examples/` 必须**保持在一起**，不可拆分；skill 通过相对路径读取它们。
-- **不要**靠读 `README.md` / `README.zh.md` 来运行 skill——它们是给人看的文档。运行只依据 `SKILL.md`。
-
----
-
-## 用法
-
-调用 skill，并提供本次任务的素材——可以贴一段文本、给一个/多个本地文件路径、指参考脚本/视频或竞品素材，也可以什么都不额外给（由听众画像兜底）。素材是临时的、按次提供，**永远不需要加进 skill 包里**。
-
-1. Skill 读取你的素材，**先复述它理解到的内容、等你确认**，确认后才开始生成。
-2. Skill 给出 **10 个候选选题**（英文标题 + 中文说明），你选一个。
-3. 可选指定：
-   - 脚本参考时长（默认 **`30min`**）
-   - 开头 BGM 单独铺底时长（默认 **`8s`**）
-4. Skill 把完整英文脚本写入 `output/<YYYY-MM-DD>-<slug>.md`。
-
-> 当前版本强制走 10 选 1 流程，不支持跳过选题、直接指定主题。
-
----
-
-## 自定义
-
-编辑 `user_profile.md` 调整目标听众与内容偏好——skill 每次运行都会参考它，无需每次重复输入。
-
-脚本风格、结构、标记规则和内容禁区都在 `script_rules.md` 里——它是 skill 的核心。要改脚本怎么写，就改这个文件，它是唯一真源。改完任何文件后记得重新 push 仓库，保持安装同步。
+内容审查、TTS、BGM 制作、混音和发布不在本 skill 范围内。

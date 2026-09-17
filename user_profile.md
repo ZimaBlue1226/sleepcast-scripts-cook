@@ -1,118 +1,22 @@
-# SleepCast 用户画像 / Audience Profile
+# Audience and content guidance
 
-> 本文件是 `sleepcast-scripts-cook` 生成 SleepCast 选题与英文脚本时的默认受众画像。
-> 当前版本已根据飞书知识库「[助眠]APP-VelaSleep-项目中心 / 02-产品设计 / 用户画像（逐步更新）」完全更新。
-> 画像用于影响选题、场景选择、叙事密度、情绪安抚方式与付费价值判断；脚本结构、音频标记、内容禁区仍以 `script_rules.md` 为唯一真源。
+Write original-sounding English SleepCast narration for North American adults, primarily for bedtime relaxation. Use restrained, concrete language that is understandable on first hearing without reading the text.
 
-## 1. 总体目标听众
+## Shared needs
 
-- 地区：北美首发市场。
-- 年龄：核心覆盖 24-45 岁成年人。
-- 收入：中等至高收入，其中核心付费人群通常具备稳定订阅预算。
-- 场景：睡前、夜醒后、准备躺下时、情绪或信息处理过载后。
-- 主要问题：入睡前脑唤起偏高、担忧或情绪反刍、睡眠内容依赖、希望更少屏幕和更少选择。
-- 交互偏好：手机为主，可接受语音类交互；对“躺下就用”“闭眼可用”“无屏沉浸”价值敏感。
+Provide slow, low-stimulation, low-pressure immersion. The listener can stay without tasks, purchases, or social responses. Establish warmth and safety through perceptible surroundings and actions.
 
-## 2. 重点人群
+Low stimulation does not require complete stillness. Preserve gentle interaction and change, especially the central experience of a fantasy theme. Avoid startling events, strong conflict, suspense, childish presentation, medical claims, and promises of sleep.
 
-### 人群一：高压脑力工作 / 情绪压力者
+## Relevant listening circumstances
 
-- 年龄范围：24-40。
-- 性别分布：相对均衡，女性略高。
-- 收入水平：中高，通常具备稳定订阅预算。
-- 生活方式特征：
-  - 工作强度高。
-  - 睡前频繁处理信息和情绪。
-  - 常见“担忧驱动型脑唤起”，容易反复回想、计划、担心。
-- 软件使用偏好：
-  - 使用频次中高。
-  - 频繁使用移动办公。
-  - 可接受语音类交互。
-- 付费主要诉求：
-  - 更快入睡。
-  - 更少反刍，包括情绪和信息的反复唤起。
-  - 次日精神状态更稳定。
-- 对 SleepCast 的创作启发：
-  - 选题应快速建立“远离任务”的边界感。
-  - 避免工作物件、计划感、效率感和强目标感。
-  - Wind Down 适合使用 noting、weighted breath、gravity body 等低努力技术，把思绪从“处理问题”转向“允许经过”。
+These are creative lenses retained from the earlier audience guidance, not verified market segments or assumptions about every listener. Use those supported by the user's brief or relevant to the theme:
 
-### 人群二：睡眠内容依赖型用户
+- Mental overload or repetitive thinking: establish a clear departure from demands. Let concrete sensations occupy attention without introducing plans, productivity, work objects, or pressure to complete an exercise.
+- Familiar bedtime rituals or regular use of sleep content: offer a stable, repeatable experience and natural companionship without dependence on plot memory. A quiet guardian may fit, but is not compulsory and should not demand interaction.
+- Interest in sleep tracking or optimization: keep structure in the production process. Do not put scores, performance targets, or concern about sleeping correctly into the narration.
+- Night waking, parenting, or caregiving: make entry gentle and easy to follow without prior context. Avoid sudden sounds, complex setup, or new responsibilities; do not assume the listener has children unless stated.
 
-- 年龄范围：25-45。
-- 性别分布：女性显著更高。
-- 收入水平：中等至中高。
-- 生活方式特征：
-  - 注重睡前仪式，常借助冥想、睡眠故事、白噪音等内容。
-  - 对陪伴和情绪安抚价值敏感。
-- 软件使用偏好：
-  - 更在意好用、好听、情绪安全。
-  - 手机为主。
-  - 强调“躺下就用”；Calm 用户中有较高比例在准备躺下入睡时使用应用。
-- 付费主要诉求：
-  - 内容库完备、品质稳定。
-  - 尤其愿意为“更懂我”的推荐和分发形式付费。
-- 对 SleepCast 的创作启发：
-  - 选题要像 native sleep story / sleep podcast，而不是翻译腔冥想文案。
-  - 场景应具备可反复收听的稳定性、陪伴感和低刺激美感。
-  - 叙事不追求剧情反转，重点是声音、材质、光线、温度和安全感。
+Do not reinstate unverified age, income, gender, or payment claims as creative constraints. Do not add explanations of the listener's real-life problems to the story merely because a lens is useful during planning.
 
-### 人群三：睡眠追踪 / 睡眠优化者
-
-- 年龄范围：28-45。
-- 性别分布：男性更高。
-- 收入水平：中高至高。
-- 生活方式特征：
-  - 常与运动、训练、恢复导向结合。
-  - 熟悉“数据 -> 策略 -> 复盘”的链路。
-  - 已有睡眠追踪习惯。
-- 软件使用偏好：
-  - 使用可穿戴设备、睡眠评分、智能唤醒等工具。
-  - 愿意用语音和自动化实现无屏沉浸。
-- 付费主要诉求：
-  - 个性化训练计划式的睡前流程。
-  - 早晨唤醒策略。
-  - 更愿意年付。
-- 对 SleepCast 的创作启发：
-  - 可以强调“流程被安排好”，但不要把脚本写成训练任务。
-  - 避免数据、分数、优化焦虑和睡眠表现压力。
-  - 内容应让“策略感”退到后台，前台只保留自然、稳定、可重复的入睡流程。
-
-### 人群四：新手父母与照护者
-
-- 年龄范围：28-35。
-- 性别分布：女性更高，伴侣共同使用场景存在。
-- 收入水平：中等至中高。
-- 生活方式特征：
-  - 夜间被迫醒来，睡眠碎片化。
-  - 对“快速再入睡”和“夜醒后不刷屏”价值强。
-  - 同时关心情绪稳定与倦怠缓解。
-- 软件使用偏好：
-  - 手机为主。
-  - 夜醒时更需要闭眼可用的语音引导，且不影响孩子。
-  - 家庭场景下对隐私更敏感。
-- 付费主要诉求：
-  - 把夜醒后的情绪安抚和再入睡变成可重复流程。
-  - 偏好家庭计划或共享权益，但对年付价格更敏感，需要清晰价值。
-- 对 SleepCast 的创作启发：
-  - 开场应更快降低刺激，不制造复杂剧情。
-  - 声音和语言必须温和、低音量想象、无突然声响。
-  - 场景适合短时间也能进入，不依赖前情和记忆。
-
-## 3. 内容偏好
-
-- 原生英文表达，接近 native sleep story / sleep podcast。
-- 文学化、克制、具体、感官化，避免翻译腔和口号式助眠句。
-- 默认结构可支持约 30 分钟人声叙事，后续无人声背景音循环由音频工程处理。
-- 偏好可长时间停留、无任务、无社交压力的安全空间。
-- 允许温暖、被照料、被守护的氛围；守护者角色可有可无，但绝不打扰听众。
-- 对“更懂我”的推荐、分发、个性化流程敏感，因此选题应能体现对不同压力类型和睡前状态的理解。
-
-## 4. 体验红线
-
-- 低刺激、慢节奏、低信息密度。
-- 避免惊吓、强剧情、悬念、冲突、任务感、屏幕刺激和表现压力。
-- 避免医疗化语言，不做诊断、治疗或疗效承诺；Vela / SleepCast 的定位是 sleep companion / sleep guide / sleep coach，而不是 therapist。
-- 不在脚本中制造“必须睡好”“必须完成练习”“必须优化表现”的压力。
-- 禁止或慎用元素以 `script_rules.md` 为准，尤其避免手机、屏幕、闹钟、具体时间数字、工作相关物件、现代电子设备、镜子、尖锐物品、突然的动物叫声。
-
+This file guides audience and topic decisions. Production and delivery follow `script_rules.md`; writing follows the selected category's rules.
